@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 import argparse
 import re
 
@@ -36,7 +38,7 @@ def replace_reply_action(line):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument("--inputfile", help="Inputfile that should be fixed.")
+    parser.add_argument("--inputfile", help="Inputfile that should be fixed.", required=True)
     parser.add_argument("--outputfile", help="Outputfile that should be written.", default = None)
     args = parser.parse_args()
     lines = read_input_file(args.inputfile)
@@ -44,4 +46,7 @@ if __name__ == '__main__':
     result = []
     for line in seperate_lines_fixed:
         result.append(replace_reply_action(line))
-    write_output_file(args.outputfile, result)
+    if args.outputfile:
+        write_output_file(args.outputfile, result)
+    else:
+        write_output_file(args.inputfile, result)
